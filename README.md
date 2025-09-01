@@ -58,19 +58,19 @@ node readora-complete.js
 
 ## 💡 Future Enhancements
 
-This project is a strong foundation and can be significantly improved. Planned future upgrades include:
+This project provides a strong foundation and can be expanded with the following improvements:
 
 - **Full Integration with IBM Watson Assistant**  
   Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
 
 - **Expanded Content**  
-  Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
+  Integrate with a real-time book API (e.g., Google Books) to expand the recommendation library with the latest titles.
 
 - **User Personalization**  
-  Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
+  Implement authentication and user profiles to remember past interactions and deliver long-term personalized recommendations.
 
 - **Improved UI/UX**  
-  Enhance the user interface with refined styling, animations, and a more engaging chat experience.
+  Refine the interface with advanced styling, smooth animations, and a more engaging chat experience.
 
 ---
 
