@@ -47,7 +47,7 @@ Follow these steps to set up and run Readora locally:
     npm install express
   
 
-### ▶️ Running the Server
+## ▶️ Running the Server
 
 Run the **main server** (`readora-complete.js`):
 
