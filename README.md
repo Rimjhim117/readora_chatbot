@@ -56,7 +56,7 @@ node readora-complete.js
 
 ---
 
-💡 Future Enhancements
+###💡 Future Enhancements
 
 This project is a strong foundation and can be significantly improved. Planned future upgrades include:
 
