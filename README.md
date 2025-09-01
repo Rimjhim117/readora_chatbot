@@ -54,28 +54,42 @@ Run the **main server** (`readora-complete.js`):
 ```bash
 node readora-complete.js
 
+---
 
-💡 Future Enhancements
+## 💡 Future Enhancements
 
-This project is a strong foundation and can be significantly improved upon. My future plans for this project include:
+This project is a strong foundation and can be significantly improved. Planned future upgrades include:
 
-    Full Integration with IBM Watson Assistant: Integrate with a live IBM Watson Assistant service to leverage its advanced natural language processing capabilities, providing more accurate and dynamic conversations.
+- **Full Integration with IBM Watson Assistant**  
+  Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
 
-    Expanded Content: Integrate with a real-time book API (e.g., Google Books) to dramatically expand the book database and provide the latest titles.
+- **Expanded Content**  
+  Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
 
-    User Personalization: Implement user authentication and a profile system to remember past interactions and provide more personalized, long-term recommendations.
+- **User Personalization**  
+  Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
 
-    Improved UI/UX: Refine the user interface with more advanced styling and animations to create an even more engaging experience.
+- **Improved UI/UX**  
+  Enhance the user interface with refined styling, animations, and a more engaging chat experience.
 
-🤝 Contributing
+---
 
-Contributions are welcome! If you'd like to help improve this project, feel free to open an issue or submit a pull request.
+## 🤝 Contributing
 
-📄 License
+Contributions are welcome!  
+If you'd like to help improve this project, please **open an issue** or **submit a pull request**.
 
-Distributed under the MIT License. See the LICENSE file for more information.
+---
 
-🙋‍♂️ Author
+## 📄 License
 
-Rimjhim Srivastava 
+Distributed under the **MIT License**.  
+See the [LICENSE](LICENSE) file for more details.
+
+---
+
+## 🙋‍♂️ Author
+
+**Rimjhim Srivastava**  
+Developer of **Readora – AI Book Recommendation Chatbot**
 
