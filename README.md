@@ -1,57 +1,59 @@
-# readora_chatbot
-Readora: AI Book Recommendation Chatbot
+# 📚 Readora – AI Book Recommendation Chatbot
 
-This project, Readora, is a smart, AI-powered book recommendation chatbot developed as part of an IBM PBEL Internship. It serves as a proof of concept for a natural language processing system that helps users discover new books based on their mood and genre preferences.
+**Readora** is a smart, AI-powered book recommendation chatbot developed as part of an **IBM PBEL Internship**.  
+It serves as a proof of concept for a natural language processing system that helps users discover new books based on their **mood** and **genre preferences**.
 
-The core logic of the chatbot is designed to mimic the intent and entity detection capabilities of IBM Watson Studio, allowing for intelligent, conversational recommendations without a live service. This demonstrates a clear understanding of how to build and structure an AI-driven assistant from the ground up.
+The core logic is inspired by **IBM Watson Assistant**, mimicking intent and entity detection capabilities to provide intelligent, conversational recommendations without relying on a live service. This demonstrates a clear understanding of how to design and structure an **AI-driven assistant** from the ground up.
 
-✨ Key Features
+---
 
-    IBM Watson-style Logic: The chatbot's backend processes user messages to detect moods (e.g., "sad", "happy") and genres ("fantasy", "thriller"), and then provides relevant recommendations.
+## ✨ Key Features
 
-    Dynamic & Responsive UI: A clean, modern web interface built with HTML, CSS, and JavaScript provides a seamless chat experience with interactive book cards.
+- **IBM Watson-style Logic**  
+  Detects moods (e.g., *happy, sad*) and genres (e.g., *fantasy, thriller*) to provide relevant book recommendations.
 
-    Simple & Scalable Backend: The server, built with Node.js and Express, efficiently handles API calls and serves the front-end, making it easy to test and extend.
+- **Dynamic & Responsive UI**  
+  A clean, modern interface built with **HTML, CSS, and JavaScript**, offering a smooth chat experience with interactive book cards.
 
-    Robust Book Database: The main version of the project includes a curated database of 50 books across five popular genres, ensuring a wide range of recommendations.
+- **Simple & Scalable Backend**  
+  A **Node.js + Express** server efficiently handles API calls and serves the front-end, making the project easy to test and extend.
 
-🚀 Getting Started
+- **Curated Book Database**  
+  Includes a curated set of **50 books across five popular genres**, ensuring a broad range of recommendations.
 
-To get a local copy of this project up and running, follow these simple steps.
+---
 
-Prerequisites
+## 🚀 Getting Started
 
-You need to have Node.js installed on your machine.
+Follow these steps to set up and run Readora locally:
 
-    Node.js
+### ✅ Prerequisites
+- Install [Node.js](https://nodejs.org/) on your machine.
 
-Installation
+### 📦 Installation
 
-    Clone the repository:
-    Bash
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/your-username/readora.git
+    ```
 
-git clone https://github.com/your-username/readora.git
+2. Navigate to the project directory:
+    ```bash
+    cd readora
+    ```
 
-Navigate to the project directory:
-Bash
-
-cd readora
-
-Install the required Node.js packages:
-Bash
-
+3. Install required Node.js packages:
+    ```bash
     npm install express
+    ```
 
-Running the Server
+### ▶️ Running the Server
 
-You can run one of two server versions. The readora-complete.js file is the primary, feature-rich version.
+Run the **main server** (`readora-complete.js`):
 
-Using the main server (readora-complete.js):
-Bash
-
+```bash
 node readora-complete.js
 
-After running the command, open your web browser and go to http://localhost:3000 to start chatting with Readora.
 
 💡 Future Enhancements
 
