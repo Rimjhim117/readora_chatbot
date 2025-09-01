@@ -45,7 +45,7 @@ Follow these steps to set up and run Readora locally:
 3. Install required Node.js packages:
     ```bash
     npm install express
-    ```
+  
 
 ### ▶️ Running the Server
 
@@ -54,9 +54,8 @@ Run the **main server** (`readora-complete.js`):
 ```bash
 node readora-complete.js
 
----
 
-###💡 Future Enhancements
+💡 Future Enhancements
 
 This project is a strong foundation and can be significantly improved. Planned future upgrades include:
 
