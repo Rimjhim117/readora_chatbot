@@ -88,5 +88,8 @@ Your contributions will help improve **Readora** for everyone!
 - Distributed under the **MIT License**  
 
 
-Rimjhim Srivastava
-Developer of Readora – AI Book Recommendation Chatbot
+## 👩‍💻 Author
+
+- **Rimjhim Srivastava**  
+  GitHub: [rimjhim117](https://github.com/rimjhim117)
+  Developer of Readora – AI Book Recommendation Chatbot
