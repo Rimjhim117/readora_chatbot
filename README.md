@@ -58,31 +58,37 @@ node readora-complete.js
 
 
 
-💡 Future Enhancements
+## 💡Future Enhancements
 
-This project is a strong foundation and can be significantly improved. Planned future upgrades include:
+- **🤖 Full Integration with IBM Watson Assistant**  
+  Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
 
-    Full Integration with IBM Watson Assistant
-    Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
+- **📖 Expanded Content**  
+  Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
 
-    Expanded Content
-    Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
+- **👤 User Personalization**  
+  Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
 
-    User Personalization
-    Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
+- **🎨 Improved UI/UX**  
+  Enhance the user interface with refined styling, animations, and a more engaging chat experience.
 
-    Improved UI/UX
-    Enhance the user interface with refined styling, animations, and a more engaging chat experience.
+---
 
-🤝 Contributing
+## 🤝 Contributing
 
-Contributions are welcome!
-If you'd like to help improve this project, please open an issue or submit a pull request.
-📄 License
+- **Fork the repository**  
+- **Submit issues or feature requests**  
+- **Open pull requests** with improvements or bug fixes  
 
-Distributed under the MIT License.
-See the LICENSE file for more details.
-🙋‍♂️ Author
+Your contributions will help improve **Readora** for everyone!
+
+---
+
+## 📄 License
+
+- Distributed under the **MIT License**  
+- See the [LICENSE](LICENSE) file for details  
+
 
 Rimjhim Srivastava
 Developer of Readora – AI Book Recommendation Chatbot
