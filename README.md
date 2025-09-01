@@ -55,40 +55,34 @@ Run the **main server** (`readora-complete.js`):
 
 ```bash
 node readora-complete.js
-
-
-
-## 💡Future Enhancements
-
-- **🤖 Full Integration with IBM Watson Assistant**  
-  Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
-
-- **📖 Expanded Content**  
-  Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
-
-- **👤 User Personalization**  
-  Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
-
-- **🎨 Improved UI/UX**  
-  Enhance the user interface with refined styling, animations, and a more engaging chat experience.
-
 ---
+💡 Future Enhancements
 
-## 🤝 Contributing
+🤖 Full Integration with IBM Watson Assistant
+Connect with a live Watson Assistant service to leverage advanced NLP for more accurate and dynamic conversations.
 
-- **Fork the repository**  
-- **Submit issues or feature requests**  
-- **Open pull requests** with improvements or bug fixes  
+📖 Expanded Content
+Integrate with a real-time book API (e.g., Google Books) to dramatically expand the database and include the latest titles.
 
-Your contributions will help improve **Readora** for everyone!
+👤 User Personalization
+Add authentication and profiles to remember past interactions and provide long-term personalized recommendations.
 
----
+🎨 Improved UI/UX
+Enhance the user interface with refined styling, animations, and a more engaging chat experience.
 
-## 📄 License
+🤝 Contributing
 
-- Distributed under the **MIT License**  
-- See the [LICENSE](LICENSE) file for details  
+Fork the repository
 
+Submit issues or feature requests
+
+Open pull requests with improvements or bug fixes
+
+Your contributions will help improve Readora for everyone!
+
+📄 License
+
+Distributed under the MIT License
 
 Rimjhim Srivastava
 Developer of Readora – AI Book Recommendation Chatbot
