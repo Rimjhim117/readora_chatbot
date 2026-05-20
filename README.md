@@ -87,10 +87,10 @@ To configure your Watson Assistant instance:
 
 ```text
 Readora/
+├── .env                         # Local environment variables configuration (ignored by git)
+├── .env.example                 # Environment variables template
 ├── backend/                     # Node.js + Express backend server (Port 5000)
 │   ├── public/                  # Compiled React production assets served by Express
-│   ├── .env                     # Local environment variables configuration
-│   ├── .env.example             # Environment variables template
 │   ├── Readora_RealBooks_Part2.csv # Real book dataset (CSV database)
 │   ├── server.js                # Express API and configurations service
 │   └── package.json             # Backend npm modules configuration
