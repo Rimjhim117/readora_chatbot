@@ -13,7 +13,7 @@ The project is structured as a professional, production-grade full-stack applica
 *   **Vibe Filter Dashboard:** Allows users to manually filter and explore books across 5 core genres (Fantasy, Romance, Sci-Fi, Thriller, Horror) using clean, responsive dashboard controls.
 *   **Dual-Server Dev Workflow:** Uses `concurrently` to boot both the React dev server (Vite, port 5173) and the Express backend (port 5000) with a single root command.
 *   **Dynamic CSV Parser:** Automatically reads and parses the structured 50-book dataset (`Readora_RealBooks_Part2.csv`) on startup using a custom quote-safe CSV scanner.
-*   **Premium Glassmorphic Theme:** Stunning dark aesthetic with ambient radial gradient floating orbs and micro-animations.
+*   **Cozy Library Theme:** Warm, airy light theme with soft background gradient orbs and micro-animations styled around book-lover aesthetics.
 
 ---
 
@@ -87,7 +87,6 @@ To configure your Watson Assistant instance:
 
 ```text
 Readora/
-├── .backup/                     # Backups of original monolithic files (safe-keeping)
 ├── backend/                     # Node.js + Express backend server (Port 5000)
 │   ├── public/                  # Compiled React production assets served by Express
 │   ├── .env                     # Local environment variables configuration
@@ -103,3 +102,11 @@ Readora/
 ├── package.json                 # Root script runner orchestrator
 └── README.md                    # Project documentation
 ```
+
+---
+
+## 👩‍💻 Author
+
+- **Rimjhim Srivastava**  
+  GitHub: [rimjhim117](https://github.com/rimjhim117)  
+  Developer of Readora – AI Book Recommendation Chatbot
