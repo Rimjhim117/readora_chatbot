@@ -1,12 +1,12 @@
-# 🤖 Readora — AI-Powered Book Recommendation Chatbot (React + Node Full Stack)
+# Readora — AI-Powered Book Recommendation Chatbot (React + Node Full Stack)
 
-**Readora** is a premium, full-stack book recommendation chatbot designed to help readers discover books they will love through natural conversations. Powered by **IBM Watson Assistant** and a local database, Readora analyzes how a user is feeling or what genre they are interested in and displays recommendations in an interactive dashboard featuring animated **3D physical book cards**.
+Readora is a premium, full-stack book recommendation chatbot designed to help readers discover books they will love through natural conversations. Powered by IBM Watson Assistant and a local database, Readora analyzes how a user is feeling or what genre they are interested in and displays recommendations in an interactive dashboard featuring animated 3D physical book cards.
 
 The project is structured as a professional, production-grade full-stack application (similar to a standard enterprise React + Express setup).
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 *   **IBM Watson Web Chat Integration:** Loads the official Watson Web Chat widget dynamically and listens to Watson's responses client-side. When you chat with Watson, the React frontend catches message triggers, queries the Express API, and updates the recommendation grid.
 *   **3D Physical Book Cards:** Implements a premium, physical 3D book hover animation in pure CSS, complete with spines, cover title labels, and tilt angles that respond to cursor movement.
@@ -17,7 +17,7 @@ The project is structured as a professional, production-grade full-stack applica
 
 ---
 
-## 📐 System Architecture
+## System Architecture
 
 ```mermaid
 graph TD
@@ -31,10 +31,10 @@ graph TD
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### 1. Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) (v16 or higher) and `npm` installed on your system.
+Make sure you have Node.js (v16 or higher) and npm installed on your system.
 
 ### 2. Installation
 Clone the repository and install all dependencies in one command:
@@ -50,7 +50,7 @@ Start both the React frontend and the Express backend concurrently:
 ```bash
 npm run dev
 ```
-Open [http://localhost:5173](http://localhost:5173) in your web browser. The frontend will automatically proxy all API requests to the Express server running on port 5000.
+Open http://localhost:5173 in your web browser. The frontend will automatically proxy all API requests to the Express server running on port 5000.
 
 ### 4. Build for Production
 To bundle the React app for production deploy, run:
@@ -61,7 +61,7 @@ Vite will compile the React code and deposit it straight into the `backend/publi
 
 ---
 
-## 🤖 IBM Watson Assistant Setup Guide
+## IBM Watson Assistant Setup Guide
 
 To configure your Watson Assistant instance:
 
@@ -83,7 +83,7 @@ To configure your Watson Assistant instance:
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 ```text
 Readora/
@@ -105,7 +105,7 @@ Readora/
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 - **Rimjhim Srivastava**  
   GitHub: [rimjhim117](https://github.com/rimjhim117)  
