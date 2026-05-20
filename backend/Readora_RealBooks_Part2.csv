@@ -1,0 +1,51 @@
+id,title,author,genre,mood,description,rating
+1,"Harry Potter and the Sorcerer's Stone","J.K. Rowling","Fantasy","fantasy","A young wizard's first year at Hogwarts School of Witchcraft and Wizardry",4.9
+2,"The Hobbit","J.R.R. Tolkien","Fantasy","fantasy","A hobbit's unexpected journey to reclaim a lost kingdom",4.4
+3,"Mistborn: The Final Empire","Brandon Sanderson","Fantasy","fantasy","A thief discovers her magical powers in a world of ash and mist",4.5
+4,"A Game of Thrones","George R.R. Martin","Fantasy","fantasy","Noble families vie for control of the Iron Throne in Westeros",4.5
+5,"The Name of the Wind","Patrick Rothfuss","Fantasy","fantasy","A gifted boy grows into a legendary figure of magic and music",4.0
+6,"Eragon","Christopher Paolini","Fantasy","fantasy","A farm boy discovers a dragon egg and his destiny as a Dragon Rider",4.7
+7,"The Way of Kings","Brandon Sanderson","Fantasy","fantasy","An epic tale of honor, war, and magic in a storm-ravaged world",4.8
+8,"The Last Wish","Andrzej Sapkowski","Fantasy","fantasy","Tales of Geralt of Rivia, a monster hunter for hire",4.3
+9,"The Lion, the Witch and the Wardrobe","C.S. Lewis","Fantasy","fantasy","Four siblings discover the magical world of Narnia through a wardrobe",4.5
+10,"Percy Jackson & the Lightning Thief","Rick Riordan","Fantasy","fantasy","A boy discovers he's the son of a Greek god in modern America",4.8
+11,"Pride and Prejudice","Jane Austen","Romance","romance","Love and misunderstandings in Regency England",4.9
+12,"The Notebook","Nicholas Sparks","Romance","romance","A timeless love story that spans decades through memory and devotion",4.5
+13,"Me Before You","Jojo Moyes","Romance","romance","A quirky caretaker transforms the life of a paralyzed man",4.5
+14,"Outlander","Diana Gabaldon","Romance","romance","A WWII nurse time-travels to 18th century Scotland and finds love",4.5
+15,"Twilight","Stephenie Meyer","Romance","romance","A teenage girl falls for a mysterious vampire, changing her world forever",4.0
+16,"The Fault in Our Stars","John Green","Romance","romance","Two teens with cancer bond over humor, philosophy, and love",4.5
+17,"To All the Boys I've Loved Before","Jenny Han","Romance","romance","Secret love letters accidentally sent change everything for Lara Jean",4.5
+18,"Red, White & Royal Blue","Casey McQuiston","Romance","romance","Enemies-to-lovers romance between the First Son and a British Prince",4.5
+19,"It Ends With Us","Colleen Hoover","Romance","romance","A woman's complex relationships force her to confront difficult truths",4.5
+20,"Beach Read","Emily Henry","Romance","romance","Two rival writers challenge each other to write outside their comfort zones",4.5
+21,"Dune","Frank Herbert","Sci-Fi","sci-fi","Power, politics, and prophecy on the desert planet Arrakis",4.9
+22,"Ender's Game","Orson Scott Card","Sci-Fi","sci-fi","A child genius is trained in military strategy to save humanity",4.5
+23,"Neuromancer","William Gibson","Sci-Fi","sci-fi","The cyberpunk novel that defined a genre and predicted the internet",4.5
+24,"Snow Crash","Neal Stephenson","Sci-Fi","sci-fi","A hacker uncovers a digital virus with ancient linguistic roots",4.5
+25,"The Martian","Andy Weir","Sci-Fi","sci-fi","An astronaut uses science and humor to survive alone on Mars",4.5
+26,"Ready Player One","Ernest Cline","Sci-Fi","sci-fi","A VR treasure hunt in a dystopian future obsessed with 80s culture",4.5
+27,"Project Hail Mary","Andy Weir","Sci-Fi","sci-fi","A lone scientist must save Earth from extinction using unlikely allies",4.5
+28,"Foundation","Isaac Asimov","Sci-Fi","sci-fi","A mathematician predicts and fights the fall of a galactic empire",4.5
+29,"Hyperion","Dan Simmons","Sci-Fi","sci-fi","Seven pilgrims journey to a mysterious world, each revealing their story",4.5
+30,"Old Man's War","John Scalzi","Sci-Fi","sci-fi","The elderly are recruited and enhanced for interstellar warfare",4.5
+31,"The Girl with the Dragon Tattoo","Stieg Larsson","Thriller","thriller","A journalist and hacker uncover a wealthy family's dark secrets in Sweden",4.5
+32,"Gone Girl","Gillian Flynn","Thriller","thriller","A woman's disappearance reveals sinister truths about marriage and media",4.5
+33,"The Da Vinci Code","Dan Brown","Thriller","thriller","A symbologist races through Europe following clues to ancient secrets",4.5
+34,"The Silent Patient","Alex Michaelides","Thriller","thriller","A woman refuses to speak after allegedly murdering her husband",4.5
+35,"In the Woods","Tana French","Thriller","thriller","A detective confronts his past while investigating a child's disappearance",4.5
+36,"Before I Go to Sleep","S.J. Watson","Thriller","thriller","A woman with memory loss discovers disturbing truths about her life",4.5
+37,"I Am Watching You","Teresa Driscoll","Thriller","thriller","A woman's guilt over a witnessed conversation leads to deadly consequences",4.5
+38,"Behind Closed Doors","B.A. Paris","Thriller","thriller","A seemingly perfect marriage hides a chilling and dangerous secret",4.5
+39,"The Couple Next Door","Shari Lapena","Thriller","thriller","A baby disappears during a dinner party, exposing neighborhood secrets",4.5
+40,"The Woman in the Window","A.J. Finn","Thriller","thriller","An agoraphobic woman believes she witnessed a crime from her window",4.5
+41,"It","Stephen King","Horror","horror","A shape-shifting entity terrorizes children in the town of Derry",4.5
+42,"The Shining","Stephen King","Horror","horror","A family's winter isolation in a haunted hotel leads to madness",4.5
+43,"Bird Box","Josh Malerman","Horror","horror","A mother and children survive blindfolded against unseen monsters",4.5
+44,"The Haunting of Hill House","Shirley Jackson","Horror","horror","A group investigates a haunted house that preys on human psychology",4.5
+45,"Dracula","Bram Stoker","Horror","horror","The classic tale of Count Dracula's vampiric reign of terror",4.5
+46,"Mexican Gothic","Silvia Moreno-Garcia","Horror","horror","A socialite investigates eerie events at a crumbling English mansion in Mexico",4.5
+47,"The Exorcist","William Peter Blatty","Horror","horror","A young girl becomes possessed by a demonic force",4.5
+48,"The Only Good Indians","Stephen Graham Jones","Horror","horror","A haunting tale of revenge rooted in Native American culture",4.3
+49,"House of Leaves","Mark Z. Danielewski","Horror","horror","A family discovers their house is larger inside than outside",4.5
+50,"Pet Sematary","Stephen King","Horror","horror","A burial ground with sinister powers tests the boundaries of life and death",4.5

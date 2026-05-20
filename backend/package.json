@@ -1,0 +1,27 @@
+{
+  "name": "readora",
+  "version": "1.0.0",
+  "description": "🤖 Readora – A smart book recommendation chatbot powered by IBM Watson Assistant. Helps users find books they’ll love through natural conversation.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rimjhim117/readora_chatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rimjhim117/readora_chatbot/issues"
+  },
+  "homepage": "https://github.com/Rimjhim117/readora_chatbot#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ibm-watson": "^12.0.0",
+    "cors": "^2.8.5"
+  }
+}

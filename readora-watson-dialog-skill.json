@@ -1,0 +1,254 @@
+{
+  "name": "Readora AI Book Finder Skill",
+  "intents": [
+    {
+      "intent": "greetings",
+      "description": "Greeting expressions",
+      "examples": [
+        {"text": "hello"},
+        {"text": "hi"},
+        {"text": "hey"},
+        {"text": "greetings"},
+        {"text": "good morning"},
+        {"text": "howdy"},
+        {"text": "hi there"}
+      ]
+    },
+    {
+      "intent": "recommend_books",
+      "description": "Requesting book suggestions",
+      "examples": [
+        {"text": "recommend me a book"},
+        {"text": "i want to read something"},
+        {"text": "give me book suggestions"},
+        {"text": "find a book for me"},
+        {"text": "suggest a good story"},
+        {"text": "what should i read"},
+        {"text": "can you find a book"},
+        {"text": "show me books"}
+      ]
+    },
+    {
+      "intent": "farewells",
+      "description": "Goodbye messages",
+      "examples": [
+        {"text": "bye"},
+        {"text": "goodbye"},
+        {"text": "see you later"},
+        {"text": "thanks bye"},
+        {"text": "exit"}
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "entity": "genre",
+      "values": [
+        {
+          "value": "Fantasy",
+          "synonyms": ["magic", "wizard", "swords", "harry potter", "mythology", "dragons", "spell", "fantacy", "fantesy", "fantasyy", "magiccal"]
+        },
+        {
+          "value": "Romance",
+          "synonyms": ["love", "relationships", "romantic", "heartwarming", "cute", "affection", "dating", "romace", "romanc", "rommance", "romentic"]
+        },
+        {
+          "value": "Sci-Fi",
+          "synonyms": ["science fiction", "space", "future", "time travel", "aliens", "technology", "star wars", "scifi", "sci fi", "sifi", "syfy"]
+        },
+        {
+          "value": "Thriller",
+          "synonyms": ["mystery", "suspense", "crime", "detective", "murder", "spy", "psychological", "thriler", "thril", "mistery", "suspanse"]
+        },
+        {
+          "value": "Horror",
+          "synonyms": ["scary", "ghosts", "haunted", "spooky", "monsters", "creepy", "slasher", "fear", "horor", "scaryy", "crepy"]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "dialog_node": "WelcomeNode",
+      "conditions": "welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hello! I am Readora, your AI book advisor. How are you feeling today? Tell me your mood or a genre you enjoy, and I'll find matches!"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Welcome"
+    },
+    {
+      "dialog_node": "GreetingsNode",
+      "conditions": "#greetings",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi there! I can suggest books for you. Tell me if you feel like reading Fantasy, Romance, Sci-Fi, Thriller, or Horror!"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Greetings",
+      "previous_sibling": "WelcomeNode"
+    },
+    {
+      "dialog_node": "FantasyRecommendation",
+      "conditions": "@genre:Fantasy",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Epic quest ahead! I've loaded some awesome Fantasy book recommendations on the dashboard grid. Check out these magic and adventure matches:"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Genre - Fantasy",
+      "previous_sibling": "GreetingsNode"
+    },
+    {
+      "dialog_node": "RomanceRecommendation",
+      "conditions": "@genre:Romance",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Love is in the air! I've populated the dashboard with comforting Romance recommendations. Enjoy these heartwarming matches:"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Genre - Romance",
+      "previous_sibling": "FantasyRecommendation"
+    },
+    {
+      "dialog_node": "SciFiRecommendation",
+      "conditions": "@genre:Sci-Fi",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Blast off into the future! I've loaded futuristic Sci-Fi book suggestions onto the dashboard. Check out these speculative fiction matches:"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Genre - Sci-Fi",
+      "previous_sibling": "RomanceRecommendation"
+    },
+    {
+      "dialog_node": "ThrillerRecommendation",
+      "conditions": "@genre:Thriller",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Time for some suspense! I've loaded gripping Thriller book suggestions on the dashboard. Enjoy these page-turning mystery matches:"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Genre - Thriller",
+      "previous_sibling": "SciFiRecommendation"
+    },
+    {
+      "dialog_node": "HorrorRecommendation",
+      "conditions": "@genre:Horror",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Prepare to be spooked! I've updated the dashboard grid with scary Horror suggestions. Steel your nerves for these creepy matches:"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Genre - Horror",
+      "previous_sibling": "ThrillerRecommendation"
+    },
+    {
+      "dialog_node": "GenericRecommendation",
+      "conditions": "#recommend_books",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I'd love to help you find a book! Tell me what genre you like (Fantasy, Romance, Sci-Fi, Thriller, or Horror) or specify your current reading mood."
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Generic Recommendation",
+      "previous_sibling": "HorrorRecommendation"
+    },
+    {
+      "dialog_node": "FarewellsNode",
+      "conditions": "#farewells",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Goodbye! Happy reading! Let me know when you need more book suggestions."
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Farewells",
+      "previous_sibling": "GenericRecommendation"
+    },
+    {
+      "dialog_node": "AnythingElseNode",
+      "conditions": "anything_else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't quite catch that. Try expressing a mood (like sad, happy, or adventurous) or tell me if you want to explore Fantasy, Romance, Sci-Fi, Thriller, or Horror!"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "title": "Anything Else",
+      "previous_sibling": "FarewellsNode"
+    }
+  ],
+  "language": "en",
+  "description": "Import file for Readora Book recommendation dialog skill with typo fuzzy match."
+}
