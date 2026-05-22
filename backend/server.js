@@ -144,6 +144,77 @@ app.get('/api/books', (req, res) => {
   res.json({ books: recommended });
 });
 
+const coverCache = {};
+
+// API: Proxy book cover fetching from Open Library
+app.get('/api/cover', async (req, res) => {
+  const { title, author } = req.query;
+  if (!title || !author) {
+    return res.status(400).json({ error: 'Title and author are required' });
+  }
+
+  const cacheKey = `${title.trim().toLowerCase()}-${author.trim().toLowerCase()}`;
+  if (coverCache[cacheKey] !== undefined) {
+    console.log(`[Cover Proxy] Serving memory-cached cover for "${title}"`);
+    return res.json({ coverUrl: coverCache[cacheKey] });
+  }
+
+  const headers = {
+    'User-Agent': 'ReadoraBookChatbot/2.0 (readora.project@gmail.com)'
+  };
+
+  try {
+    const query = `title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`;
+    const url = `https://openlibrary.org/search.json?${query}&limit=5`;
+    
+    console.log(`[Cover Proxy] Querying title & author: "${title}" by ${author}`);
+    const apiRes = await fetch(url, { headers });
+    
+    if (apiRes.ok) {
+      const data = await apiRes.json();
+      if (data.docs && data.docs.length > 0) {
+        const docWithCover = data.docs.find(d => d.cover_i);
+        if (docWithCover) {
+          const coverUrl = `https://covers.openlibrary.org/b/id/${docWithCover.cover_i}-M.jpg`;
+          console.log(`[Cover Proxy] Found cover ID ${docWithCover.cover_i} for "${title}" via title & author query`);
+          coverCache[cacheKey] = coverUrl;
+          return res.json({ coverUrl });
+        }
+      }
+    } else {
+      console.warn(`[Cover Proxy] Primary request failed with status: ${apiRes.status}`);
+    }
+
+    // Fallback: Broad q search query
+    console.log(`[Cover Proxy] Falling back to broad q query for: "${title} ${author}"`);
+    const fallbackQuery = `q=${encodeURIComponent(title + ' ' + author)}`;
+    const fallbackUrl = `https://openlibrary.org/search.json?${fallbackQuery}&limit=5`;
+    
+    const fallbackRes = await fetch(fallbackUrl, { headers });
+    if (fallbackRes.ok) {
+      const data = await fallbackRes.json();
+      if (data.docs && data.docs.length > 0) {
+        const docWithCover = data.docs.find(d => d.cover_i);
+        if (docWithCover) {
+          const coverUrl = `https://covers.openlibrary.org/b/id/${docWithCover.cover_i}-M.jpg`;
+          console.log(`[Cover Proxy] Found cover ID ${docWithCover.cover_i} for "${title}" via fallback q query`);
+          coverCache[cacheKey] = coverUrl;
+          return res.json({ coverUrl });
+        }
+      }
+    } else {
+      console.warn(`[Cover Proxy] Fallback request failed with status: ${fallbackRes.status}`);
+    }
+
+    console.log(`[Cover Proxy] No cover found for "${title}"`);
+    coverCache[cacheKey] = null;
+    res.json({ coverUrl: null });
+  } catch (err) {
+    console.error('Error in backend cover proxy:', err);
+    res.status(500).json({ error: 'Failed to retrieve cover' });
+  }
+});
+
 // API: Watson Widget config
 app.get('/api/watson-config', (req, res) => {
   res.json(webChatConfig);

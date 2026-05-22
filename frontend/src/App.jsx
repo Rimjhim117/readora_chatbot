@@ -79,12 +79,103 @@ function AnimatedCounter({ end, duration = 2000, suffix = '' }) {
   );
 }
 
+// Open Library Cover Art Helper via Backend Proxy
+const fetchCoverUrl = async (title, author) => {
+  try {
+    const query = `title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`;
+    const res = await fetch(`/api/cover?${query}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.coverUrl;
+  } catch (err) {
+    console.error('Error fetching cover from proxy:', err);
+  }
+  return null;
+};
+
+// Vibe Mapping Details
+const vibeDetails = {
+  All: {
+    name: "Harmonious Vibe",
+    desc: "A balanced selection of literary genres suited for any state of mind. Start chatting with Watson on the bottom right to tailor your recommendations.",
+    glowClass: "vibe-glow-all"
+  },
+  Fantasy: {
+    name: "Mystical Wonder & Adventure",
+    desc: "Watson senses a desire for escape, magical lore, and extraordinary journeys. Exploring worlds beyond imagination.",
+    glowClass: "vibe-glow-fantasy"
+  },
+  Romance: {
+    name: "Cozy & Heartwarming Romance",
+    desc: "Watson senses a yearning for connection, emotional depth, and tender moments. Exploring relationships and heartwarming bonds.",
+    glowClass: "vibe-glow-romance"
+  },
+  'Sci-Fi': {
+    name: "Cosmic Exploration",
+    desc: "Watson senses an intellectual curiosity about technology, space-time, and speculative futures. Probing the boundaries of what is possible.",
+    glowClass: "vibe-glow-scifi"
+  },
+  Thriller: {
+    name: "High-Suspense Thrills",
+    desc: "Watson senses a craving for mystery, tension, and mind-bending plot twists. Walking the line between shadows and revelation.",
+    glowClass: "vibe-glow-thriller"
+  },
+  Horror: {
+    name: "Spine-Chilling Tension",
+    desc: "Watson senses a brave curiosity for the dark, psychological shadows, and supernatural dread. Enter if you dare.",
+    glowClass: "vibe-glow-horror"
+  }
+};
+
 export default function App() {
   const [books, setBooks] = useState([]);
   const [selectedMood, setSelectedMood] = useState('All');
   const [loading, setLoading] = useState(false);
   const [watsonStatus, setWatsonStatus] = useState('connecting'); // 'connecting', 'connected', 'error'
   const [error, setError] = useState(null);
+
+  // Upgraded Feature States
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('none'); // 'none', 'rating', 'alphabetical'
+  const [shelfOpen, setShelfOpen] = useState(false);
+
+  // Saved Books Shelf (backed by localStorage)
+  const [savedShelf, setSavedShelf] = useState(() => {
+    try {
+      const saved = localStorage.getItem('readora_shelf');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Book Covers Cache (backed by localStorage)
+  const [bookCovers, setBookCovers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('readora_covers_cache');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Save shelf to localStorage on update
+  useEffect(() => {
+    try {
+      localStorage.setItem('readora_shelf', JSON.stringify(savedShelf));
+    } catch (e) {
+      console.error('Failed to save shelf to localStorage', e);
+    }
+  }, [savedShelf]);
+
+  // Save covers cache to localStorage on update
+  useEffect(() => {
+    try {
+      localStorage.setItem('readora_covers_cache', JSON.stringify(bookCovers));
+    } catch (e) {
+      console.error('Failed to save covers cache to localStorage', e);
+    }
+  }, [bookCovers]);
 
   // Load books from Express backend
   const fetchBooks = async (genre = '') => {
@@ -112,7 +203,67 @@ export default function App() {
   // Initial load
   useEffect(() => {
     fetchBooks();
+    // Clean up old 'placeholder' or invalid cache values so they can be re-fetched via the backend proxy
+    try {
+      const cached = localStorage.getItem('readora_covers_cache');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        let changed = false;
+        Object.keys(parsed).forEach(key => {
+          if (parsed[key] === 'placeholder' || parsed[key] === null || parsed[key] === 'none') {
+            delete parsed[key];
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem('readora_covers_cache', JSON.stringify(parsed));
+        }
+        setBookCovers(parsed);
+      }
+    } catch (e) {
+      console.error('Failed to clean cover cache on startup:', e);
+    }
   }, []);
+
+  // Asynchronously fetch missing book covers sequentially with a delay to prevent API rate limits
+  useEffect(() => {
+    let active = true;
+
+    const loadCovers = async () => {
+      // Loop sequentially through each book to avoid spamming the Open Library API concurrently
+      for (const book of books) {
+        if (!active) break;
+        const key = `${book.title}-${book.author}`;
+        
+        if (!bookCovers[key]) {
+          const url = await fetchCoverUrl(book.title, book.author);
+          if (!active) break;
+          
+          setBookCovers(prev => {
+            const updated = { ...prev, [key]: url || 'placeholder' };
+            // Persist immediately in localStorage
+            try {
+              localStorage.setItem('readora_covers_cache', JSON.stringify(updated));
+            } catch (e) {
+              console.error(e);
+            }
+            return updated;
+          });
+          
+          // Wait 250ms before the next request to respect Open Library API rate limits
+          await new Promise(resolve => setTimeout(resolve, 250));
+        }
+      }
+    };
+
+    if (books.length > 0) {
+      loadCovers();
+    }
+
+    return () => {
+      active = false;
+    };
+  }, [books]);
 
   // Listen to Watson Assistant message stream
   const handleWatsonMessage = (event) => {
@@ -174,14 +325,14 @@ export default function App() {
         setWatsonStatus('connected');
         console.log("IBM Watson Assistant Web Chat loaded successfully.");
         
-        // Customize widget colors to match frontend terracotta theme
+        // Customize widget colors to match light cozy warm library theme
         instance.updateCSSVariables({
-          '$interactive-01': '#FD7333', 
-          '$interactive-02': '#E65A1B',
-          '$focus': '#FD7333',
-          '$text-01': '#150905',
+          '$interactive-01': '#E65A1B', 
+          '$interactive-02': '#C2410C',
+          '$focus': '#E65A1B',
+          '$text-01': '#2B1D16',
           '$ui-01': '#FFFFFF',
-          '$ui-02': '#FAF5F3'
+          '$ui-02': '#FAF5EE'
         });
 
         instance.on({ type: "receive", handler: handleWatsonMessage });
@@ -208,13 +359,63 @@ export default function App() {
     fetchBooks(genre);
   };
 
+  // Shelf Drawer Operations
+  const addToShelf = (book) => {
+    if (!savedShelf.some(item => item.book.id === book.id)) {
+      setSavedShelf([...savedShelf, {
+        book,
+        status: 'want-to-read',
+        notes: '',
+        addedAt: new Date().toISOString()
+      }]);
+    }
+    setShelfOpen(true);
+  };
+
+  const removeFromShelf = (bookId) => {
+    setSavedShelf(savedShelf.filter(item => item.book.id !== bookId));
+  };
+
+  const updateShelfStatus = (bookId, newStatus) => {
+    setSavedShelf(savedShelf.map(item => 
+      item.book.id === bookId ? { ...item, status: newStatus } : item
+    ));
+  };
+
+  const updateShelfNotes = (bookId, newNotes) => {
+    setSavedShelf(savedShelf.map(item => 
+      item.book.id === bookId ? { ...item, notes: newNotes } : item
+    ));
+  };
+
+  // Client-Side Search & Sort Filtering
+  const filteredBooks = books
+    .filter((book) => {
+      const q = searchQuery.toLowerCase();
+      return (
+        book.title.toLowerCase().includes(q) ||
+        book.author.toLowerCase().includes(q) ||
+        book.description.toLowerCase().includes(q) ||
+        book.genre.toLowerCase().includes(q)
+      );
+    })
+    .sort((a, b) => {
+      if (sortBy === 'rating') {
+        return b.rating - a.rating;
+      }
+      if (sortBy === 'alphabetical') {
+        return a.title.localeCompare(b.title);
+      }
+      return 0; // Default
+    });
+
   return (
     <div className="app-container">
       {/* Floating background orbs */}
       <div className="bg-orbs-container">
-        <div className="bg-orb" style={{ width: '450px', height: '450px', top: '-10%', left: '-5%', background: 'rgba(253, 115, 51, 0.15)' }}></div>
-        <div className="bg-orb" style={{ width: '380px', height: '380px', bottom: '-10%', right: '-5%', background: 'rgba(245, 158, 11, 0.12)', animationDelay: '-6s' }}></div>
-        <div className="bg-orb" style={{ width: '300px', height: '300px', top: '40%', left: '50%', background: 'rgba(230, 90, 27, 0.08)', animationDelay: '-12s' }}></div>
+        <div className="bg-orb" style={{ width: '450px', height: '450px', top: '-10%', left: '-5%', background: 'rgba(230, 90, 27, 0.08)' }}></div>
+        <div className="bg-orb" style={{ width: '380px', height: '380px', bottom: '-10%', right: '-5%', background: 'rgba(217, 119, 6, 0.06)', animationDelay: '-6s' }}></div>
+        <div className="bg-orb" style={{ width: '300px', height: '300px', top: '40%', left: '50%', background: 'rgba(251, 146, 60, 0.04)', animationDelay: '-12s' }}></div>
       </div>
 
       <div className="app-wrapper">
@@ -224,21 +425,27 @@ export default function App() {
             <div className="logo-text">Readora</div>
           </div>
 
-          <div className="status-badge">
-            <div className={`status-dot ${watsonStatus === 'connecting' ? 'connecting' : ''}`} 
-                 style={{ backgroundColor: watsonStatus === 'connected' ? '#10b981' : watsonStatus === 'error' ? '#ef4444' : '#f59e0b' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <button className="shelf-toggle-btn" onClick={() => setShelfOpen(true)}>
+              <span>My Bookshelf</span>
+              <span className="shelf-count-badge">{savedShelf.length}</span>
+            </button>
+
+            <div className="status-badge">
+              <div className={`status-dot ${watsonStatus === 'connecting' ? 'connecting' : ''}`} 
+                   style={{ backgroundColor: watsonStatus === 'connected' ? '#10b981' : watsonStatus === 'error' ? '#ef4444' : '#f59e0b' }}>
+              </div>
+              <span>
+                {watsonStatus === 'connected' && 'Watson Assistant Active'}
+                {watsonStatus === 'connecting' && 'Connecting to Watson...'}
+                {watsonStatus === 'error' && 'Watson Offline'}
+              </span>
             </div>
-            <span>
-              {watsonStatus === 'connected' && 'Watson Assistant Active'}
-              {watsonStatus === 'connecting' && 'Connecting to Watson...'}
-              {watsonStatus === 'error' && 'Watson Offline'}
-            </span>
           </div>
         </header>
 
         {/* Hero Section */}
         <section className="hero-section">
-          {/* Subtle grid lines background overlay */}
           <div className="hero-bg">
             <div className="hero-grid-lines"></div>
           </div>
@@ -262,21 +469,6 @@ export default function App() {
                   delay={2200} 
                 />
               </p>
-
-              <div className="hero-stats animate-fade-in-up">
-                <div className="stat-item">
-                  <AnimatedCounter end={50} suffix="+" />
-                  <span className="stat-label">Real Books</span>
-                </div>
-                <div className="stat-item" style={{ borderLeft: '1px solid var(--border-light)', borderRight: '1px solid var(--border-light)', padding: '0 40px' }}>
-                  <AnimatedCounter end={5} />
-                  <span className="stat-label">Core Genres</span>
-                </div>
-                <div className="stat-item">
-                  <AnimatedCounter end={100} suffix="%" />
-                  <span className="stat-label">IBM Cognitive</span>
-                </div>
-              </div>
             </div>
 
             {/* Right Column: Cozy Library Hero Image */}
@@ -345,6 +537,52 @@ export default function App() {
           </div>
         </section>
 
+        {/* Watson Vibe Indicator Ring */}
+        {(() => {
+          const currentVibe = vibeDetails[selectedMood] || vibeDetails.All;
+          return (
+            <div className={`vibe-dashboard-container ${currentVibe.glowClass}`}>
+              <div className="vibe-ring-col">
+                <div className="vibe-ring-outer">
+                  <div className="vibe-ring-inner">
+                    <div className="vibe-ring-dot"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="vibe-info-col">
+                <span className="vibe-status-label">Active Watson Vibe</span>
+                <h3 className="vibe-active-name">{currentVibe.name}</h3>
+                <p className="vibe-description">{currentVibe.desc}</p>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Dashboard Search & Sort Controls */}
+        <div className="dashboard-controls-wrapper">
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search by title, author, description..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="sort-container">
+            <span className="sort-label">Sort:</span>
+            <select
+              className="sort-select"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+            >
+              <option value="none">Database Order</option>
+              <option value="rating">Rating (Highest First)</option>
+              <option value="alphabetical">Title (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
         {/* Recommendations Section */}
         <section className="recommendations-section" id="recommendations">
           {error && (
@@ -362,30 +600,46 @@ export default function App() {
             </div>
           )}
 
-          {!error && !loading && books.length === 0 && (
+          {!error && !loading && filteredBooks.length === 0 && (
             <div className="empty-state">
-              <p>No books matches found. Select a genre or ask Watson to suggest a category!</p>
+              <p>No book matches found. Try clearing your search filters or ask Watson to suggest a category!</p>
             </div>
           )}
 
-          {!error && !loading && books.length > 0 && (
+          {!error && !loading && filteredBooks.length > 0 && (
             <>
               <div className="section-header" style={{ marginBottom: '20px' }}>
                 <h2>Recommended {selectedMood !== 'All' ? selectedMood : ''} Books</h2>
                 <p>Matching your search criteria and cognitive vibes</p>
               </div>
               <div className="books-grid">
-                {books.map((book) => {
+                {filteredBooks.map((book) => {
                   const genreClass = (book.genre || '').toLowerCase().replace(/[^a-zA-Z]/g, '');
+                  const coverUrl = bookCovers[`${book.title}-${book.author}`];
+                  const hasCover = coverUrl && coverUrl !== 'placeholder';
+                  const isSaved = savedShelf.some(item => item.book.id === book.id);
+                  
                   return (
                     <div key={book.id} className={`book-card ${genreClass}`}>
                       {/* 3D Book Illustration */}
                       <div className="book-3d-container">
                         <div className="book-3d">
-                          <div className="book-cover">
-                            <span className="cover-genre">{book.genre}</span>
-                            <h4 className="cover-title">{book.title}</h4>
-                            <span className="cover-author">{book.author}</span>
+                          <div 
+                            className="book-cover"
+                            style={{ 
+                              backgroundImage: hasCover ? `url(${coverUrl})` : undefined,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              backgroundRepeat: 'no-repeat'
+                            }}
+                          >
+                            {!hasCover && (
+                              <>
+                                <span className="cover-genre">{book.genre}</span>
+                                <h4 className="cover-title">{book.title}</h4>
+                                <span className="cover-author">{book.author}</span>
+                              </>
+                            )}
                           </div>
                           <div className="book-spine"></div>
                         </div>
@@ -404,7 +658,9 @@ export default function App() {
                           <span className="book-rating">
                             Rating: {book.rating || '4.5'}/5
                           </span>
-                          <button className="book-btn">Get Book</button>
+                          <button className="book-btn" onClick={() => addToShelf(book)}>
+                            {isSaved ? 'In Bookshelf' : 'Add to Shelf'}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -437,6 +693,60 @@ export default function App() {
           <p>© {new Date().getFullYear()} Readora Book Recommendation System. Powered by IBM Watson Assistant.</p>
           <p style={{ marginTop: '5px', opacity: 0.5 }}>Internship Project Refactored for Web Presentation.</p>
         </footer>
+      </div>
+
+      {/* Sliding Shelf Drawer Overlay */}
+      <div 
+        className={`shelf-overlay ${shelfOpen ? 'open' : ''}`}
+        onClick={() => setShelfOpen(false)}
+      ></div>
+
+      {/* Sliding Shelf Drawer */}
+      <div className={`shelf-drawer ${shelfOpen ? 'open' : ''}`}>
+        <div className="shelf-header">
+          <h2>My Bookshelf</h2>
+          <button className="shelf-close-btn" onClick={() => setShelfOpen(false)}>×</button>
+        </div>
+        <div className="shelf-content">
+          {savedShelf.length === 0 ? (
+            <p className="shelf-empty">Your reading shelf is currently empty. Explore recommendations and add books to save your favorites!</p>
+          ) : (
+            savedShelf.map((item) => (
+              <div key={item.book.id} className="shelf-item">
+                <div className="shelf-item-header">
+                  <div>
+                    <div className="shelf-item-title">{item.book.title}</div>
+                    <div className="shelf-item-author">by {item.book.author}</div>
+                  </div>
+                  <button 
+                    className="shelf-item-remove"
+                    onClick={() => removeFromShelf(item.book.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="shelf-item-controls">
+                  <span className="cover-genre" style={{ color: 'var(--text-secondary)' }}>Status:</span>
+                  <select
+                    className="shelf-status-select"
+                    value={item.status}
+                    onChange={(e) => updateShelfStatus(item.book.id, e.target.value)}
+                  >
+                    <option value="want-to-read">Want to Read</option>
+                    <option value="reading">Currently Reading</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+                <textarea
+                  className="shelf-notes-area"
+                  placeholder="Add personal thoughts or book notes..."
+                  value={item.notes}
+                  onChange={(e) => updateShelfNotes(item.book.id, e.target.value)}
+                />
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
