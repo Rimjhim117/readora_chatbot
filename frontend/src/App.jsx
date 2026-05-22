@@ -333,12 +333,12 @@ export default function App() {
         
         // Customize widget colors to match light cozy warm library theme
         instance.updateCSSVariables({
-          '$interactive-01': '#E65A1B', 
-          '$interactive-02': '#C2410C',
-          '$focus': '#E65A1B',
-          '$text-01': '#2B1D16',
+          '$interactive-01': '#D96B43', 
+          '$interactive-02': '#B5522B',
+          '$focus': '#D96B43',
+          '$text-01': '#362C28',
           '$ui-01': '#FFFFFF',
-          '$ui-02': '#FAF5EE'
+          '$ui-02': '#FAF6EE'
         });
 
         instance.on({ type: "receive", handler: handleWatsonMessage });
@@ -419,9 +419,9 @@ export default function App() {
     <div className="app-container">
       {/* Floating background orbs */}
       <div className="bg-orbs-container">
-        <div className="bg-orb" style={{ width: '450px', height: '450px', top: '-10%', left: '-5%', background: 'rgba(230, 90, 27, 0.08)' }}></div>
-        <div className="bg-orb" style={{ width: '380px', height: '380px', bottom: '-10%', right: '-5%', background: 'rgba(217, 119, 6, 0.06)', animationDelay: '-6s' }}></div>
-        <div className="bg-orb" style={{ width: '300px', height: '300px', top: '40%', left: '50%', background: 'rgba(251, 146, 60, 0.04)', animationDelay: '-12s' }}></div>
+        <div className="bg-orb" style={{ width: '450px', height: '450px', top: '-10%', left: '-5%', background: 'rgba(217, 107, 67, 0.08)' }}></div>
+        <div className="bg-orb" style={{ width: '380px', height: '380px', bottom: '-10%', right: '-5%', background: 'rgba(224, 159, 103, 0.06)', animationDelay: '-6s' }}></div>
+        <div className="bg-orb" style={{ width: '300px', height: '300px', top: '40%', left: '50%', background: 'rgba(217, 107, 67, 0.04)', animationDelay: '-12s' }}></div>
       </div>
 
       <div className="app-wrapper">

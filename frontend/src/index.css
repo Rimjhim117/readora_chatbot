@@ -1,41 +1,44 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
-/* Premium Cozy Midnight Library Dark Theme Configuration */
+/* Curated Cozy Warm Library Color Palette Configuration */
 :root {
   --font-title: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Premium Cozy Bright Library Theme Configuration */
-  --bg-primary: #F9F6F0;      /* Cozy Soft Warm Ivory */
-  --bg-secondary: #FFFFFF;    /* Pure White */
-  --bg-tertiary: #FAF5EE;     /* Book Page Cream */
-  --bg-card: rgba(255, 255, 255, 0.85); /* Glassmorphic Card */
+  /* Backgrounds: Warm Parchment & Linen White */
+  --bg-primary: #FAF6EE;      /* Warm Soft Parchment */
+  --bg-secondary: #FFFFFF;    /* Pure Linen White */
+  --bg-tertiary: #F3ECE0;     /* Cozy Aged Book Page Cream */
+  --bg-card: rgba(255, 255, 255, 0.9); /* Premium Ivory Card */
   
-  --primary-500: #E65A1B;    /* Warm Terracotta Accent */
-  --primary-600: #C2410C;    /* Deeper Terracotta */
-  --primary-400: #F97316;    /* Soft Warm Light Amber */
-  --primary-rgb: 230, 90, 27; /* RGB values for primary-500 */
+  /* Primary accents: Soft Ginger & Burnt Terracotta */
+  --primary-500: #D96B43;    /* Cozy Warm Ginger */
+  --primary-600: #B5522B;    /* Rich Burnt Terracotta */
+  --primary-400: #E68A63;    /* Soft Peach-Clay */
+  --primary-rgb: 217, 107, 67; /* RGB values for primary-500 */
   
-  --accent-cyan: #0891b2;
-  --accent-emerald: #059669;
-  --accent-amber: #d97706;
-  --accent-rose: #db2777;
-  --accent-purple: #7c3aed;
+  /* Curated Earthy accents to match cozy library aesthetic */
+  --accent-cyan: #7DA396;    /* Pale Sage Green */
+  --accent-emerald: #8A9A86; /* Cozy Olive Green */
+  --accent-amber: #E09F67;   /* Rich Warm Ocher / Amber */
+  --accent-rose: #D38B98;    /* Sweet Dusty Rose */
+  --accent-purple: #9A8CB9;  /* Dusk Lavender */
 
-  --text-primary: #2B1D16;   /* Deep Roasted Espresso */
-  --text-secondary: #574B45; /* Cozy Charcoal-Brown */
-  --text-muted: #8E837C;     /* Warm Muted Grey */
-  --text-accent: #E65A1B;    /* Terracotta Accent */
+  /* Text colors: Roasted Espresso & Cozy Cocoa */
+  --text-primary: #362C28;   /* Roasted Coffee Espresso */
+  --text-secondary: #5D514B; /* Cozy Charcoal-Cocoa */
+  --text-muted: #8E817A;     /* Warm Clay Grey */
+  --text-accent: #D96B43;    /* Ginger Accent */
 
-  --border-subtle: rgba(43, 29, 22, 0.05);
-  --border-light: rgba(43, 29, 22, 0.08);
-  --border-accent: rgba(230, 90, 27, 0.15);
-  --border-accent-hover: rgba(230, 90, 27, 0.4);
+  --border-subtle: rgba(54, 44, 40, 0.05);
+  --border-light: rgba(54, 44, 40, 0.08);
+  --border-accent: rgba(217, 107, 67, 0.15);
+  --border-accent-hover: rgba(217, 107, 67, 0.4);
 
-  --shadow-sm: 0 2px 10px rgba(43, 29, 22, 0.03);
-  --shadow-md: 0 10px 30px rgba(43, 29, 22, 0.05);
-  --shadow-lg: 0 20px 40px rgba(43, 29, 22, 0.08);
-  --shadow-glow: 0 0 30px rgba(230, 90, 27, 0.15);
+  --shadow-sm: 0 4px 12px rgba(54, 44, 40, 0.02);
+  --shadow-md: 0 10px 30px rgba(54, 44, 40, 0.04);
+  --shadow-lg: 0 20px 40px rgba(54, 44, 40, 0.06);
+  --shadow-glow: 0 0 30px rgba(217, 107, 67, 0.12);
 }
 
 /* Global Resets */
@@ -108,11 +111,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 50px;
-  padding-bottom: 20px;
+  margin-bottom: 40px;
+  padding: 16px 24px;
   border-bottom: 1px solid var(--border-subtle);
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 15px;
+  background: rgba(249, 246, 240, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  z-index: 100;
+  box-shadow: 0 4px 30px rgba(43, 29, 22, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
 }
 
 .logo-container {
@@ -501,21 +511,23 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  letter-spacing: -0.1px;
 }
 
 .mood-btn:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--primary-400);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  background: var(--bg-secondary);
+  border-color: var(--primary-500);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(230, 90, 27, 0.08);
   color: var(--primary-600);
 }
 
 .mood-btn.active {
-  background: var(--primary-500);
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
   color: white;
   border-color: transparent;
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 10px 25px rgba(230, 90, 27, 0.25);
+  transform: translateY(-1px) scale(1.03);
 }
 
 /* Recommendations Grid */
@@ -619,20 +631,20 @@ body {
 }
 
 /* Cozy Warm Library Book Cover Gradients */
-.book-card.fantasy .book-cover { background: linear-gradient(135deg, #E9D5FF 0%, #FFEDD5 100%); color: #4c1d95; }
-.book-card.fantasy .book-spine { background: #d8b4fe; }
+.book-card.fantasy .book-cover { background: linear-gradient(135deg, #E6E2F0 0%, #FAF0E6 100%); color: #4F436E; }
+.book-card.fantasy .book-spine { background: #CDCAD6; }
 
-.book-card.romance .book-cover { background: linear-gradient(135deg, #FCE7F3 0%, #FEF3C7 100%); color: #831843; }
-.book-card.romance .book-spine { background: #fbcfe8; }
+.book-card.romance .book-cover { background: linear-gradient(135deg, #F8E6E8 0%, #FAF2E6 100%); color: #7B4750; }
+.book-card.romance .book-spine { background: #E2CCCE; }
 
-.book-card.sci-fi .book-cover { background: linear-gradient(135deg, #CCFBF1 0%, #FEF3C7 100%); color: #115e59; }
-.book-card.sci-fi .book-spine { background: #99f6e4; }
+.book-card.sci-fi .book-cover { background: linear-gradient(135deg, #E2EEEA 0%, #FAF2E6 100%); color: #3A5C4F; }
+.book-card.sci-fi .book-spine { background: #CAD8D3; }
 
-.book-card.thriller .book-cover { background: linear-gradient(135deg, #FFEDD5 0%, #FEE2E2 100%); color: #7c2d12; }
-.book-card.thriller .book-spine { background: #fecaca; }
+.book-card.thriller .book-cover { background: linear-gradient(135deg, #FAF0E6 0%, #F5E2E2 100%); color: #73452B; }
+.book-card.thriller .book-spine { background: #E0CFC5; }
 
-.book-card.horror .book-cover { background: linear-gradient(135deg, #E2E8F0 0%, #F5F5F4 100%); color: #1c1917; }
-.book-card.horror .book-spine { background: #cbd5e1; }
+.book-card.horror .book-cover { background: linear-gradient(135deg, #ECEFF1 0%, #F5F5F4 100%); color: #37474F; }
+.book-card.horror .book-spine { background: #CFD8DC; }
 
 .cover-genre {
   font-size: 0.52rem;
@@ -685,11 +697,11 @@ body {
   align-self: flex-start;
 }
 
-.book-card.fantasy .genre-badge { background: rgba(124, 58, 237, 0.08); color: #7c3aed; border: 1px solid rgba(124, 58, 237, 0.15); }
-.book-card.romance .genre-badge { background: rgba(219, 39, 119, 0.08); color: #db2777; border: 1px solid rgba(219, 39, 119, 0.15); }
-.book-card.sci-fi .genre-badge { background: rgba(8, 145, 178, 0.08); color: #0891b2; border: 1px solid rgba(8, 145, 178, 0.15); }
-.book-card.thriller .genre-badge { background: rgba(225, 29, 72, 0.08); color: #e11d48; border: 1px solid rgba(225, 29, 72, 0.15); }
-.book-card.horror .genre-badge { background: rgba(82, 82, 91, 0.08); color: #4b5563; border: 1px solid rgba(82, 82, 91, 0.15); }
+.book-card.fantasy .genre-badge { background: rgba(154, 140, 185, 0.1); color: #6D5E8D; border: 1px solid rgba(154, 140, 185, 0.25); }
+.book-card.romance .genre-badge { background: rgba(211, 139, 152, 0.1); color: #9E5C67; border: 1px solid rgba(211, 139, 152, 0.25); }
+.book-card.sci-fi .genre-badge { background: rgba(125, 163, 150, 0.1); color: #486E60; border: 1px solid rgba(125, 163, 150, 0.25); }
+.book-card.thriller .genre-badge { background: rgba(224, 159, 103, 0.1); color: #9A663A; border: 1px solid rgba(224, 159, 103, 0.25); }
+.book-card.horror .genre-badge { background: rgba(126, 139, 147, 0.1); color: #4D585E; border: 1px solid rgba(126, 139, 147, 0.25); }
 
 .book-title-heading {
   font-family: var(--font-title);
@@ -748,11 +760,11 @@ body {
   transition: all 0.3s;
 }
 
-.book-card.fantasy .book-btn:hover { background: var(--accent-purple); border-color: var(--accent-purple); color: #fff; box-shadow: 0 0 10px rgba(124, 58, 237, 0.3); }
-.book-card.romance .book-btn:hover { background: var(--accent-rose); border-color: var(--accent-rose); color: #fff; box-shadow: 0 0 10px rgba(225, 29, 72, 0.3); }
-.book-card.sci-fi .book-btn:hover { background: var(--accent-cyan); border-color: var(--accent-cyan); color: #fff; box-shadow: 0 0 10px rgba(8, 145, 178, 0.3); }
-.book-card.thriller .book-btn:hover { background: var(--accent-rose); border-color: var(--accent-rose); color: #fff; box-shadow: 0 0 10px rgba(225, 29, 72, 0.3); }
-.book-card.horror .book-btn:hover { background: #3f3f46; border-color: #3f3f46; color: #fff; box-shadow: 0 0 10px rgba(63, 63, 70, 0.3); }
+.book-card.fantasy .book-btn:hover { background: var(--accent-purple); border-color: var(--accent-purple); color: #fff; box-shadow: 0 4px 12px rgba(154, 140, 185, 0.35); }
+.book-card.romance .book-btn:hover { background: var(--accent-rose); border-color: var(--accent-rose); color: #fff; box-shadow: 0 4px 12px rgba(211, 139, 152, 0.35); }
+.book-card.sci-fi .book-btn:hover { background: var(--accent-cyan); border-color: var(--accent-cyan); color: #fff; box-shadow: 0 4px 12px rgba(125, 163, 150, 0.35); }
+.book-card.thriller .book-btn:hover { background: var(--accent-amber); border-color: var(--accent-amber); color: #fff; box-shadow: 0 4px 12px rgba(224, 159, 103, 0.35); }
+.book-card.horror .book-btn:hover { background: var(--accent-horror); border-color: var(--accent-horror); color: #fff; box-shadow: 0 4px 12px rgba(126, 139, 147, 0.35); }
 
 .empty-state {
   text-align: center;
@@ -1068,8 +1080,14 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  background: rgba(var(--primary-rgb), 0.05);
+  background: rgba(var(--primary-rgb), 0.03);
+  border: 2px dashed rgba(var(--primary-rgb), 0.3);
   transition: all 0.5s ease;
+  animation: rotate-ring 20s linear infinite;
+}
+@keyframes rotate-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 .vibe-ring-inner {
   width: 76px;
@@ -1079,7 +1097,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: inset 0 2px 8px rgba(54, 44, 40, 0.05);
 }
 .vibe-ring-dot {
   width: 14px;
@@ -1092,7 +1110,7 @@ body {
 }
 @keyframes pulse-ring {
   0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 1; }
   100% { transform: scale(0.95); opacity: 0.8; }
 }
 .vibe-info-col {
@@ -1123,52 +1141,67 @@ body {
 
 /* Vibe Glow Themes */
 .vibe-glow-all {
-  box-shadow: 0 0 25px rgba(var(--primary-rgb), 0.15);
-  border: 3px solid rgba(var(--primary-rgb), 0.3);
+  box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.08);
+  border: 1px solid rgba(var(--primary-rgb), 0.2);
 }
 .vibe-glow-all .vibe-ring-dot {
   background: var(--primary-500);
   box-shadow: 0 0 15px var(--primary-500);
 }
 .vibe-glow-fantasy {
-  box-shadow: 0 0 25px rgba(124, 58, 237, 0.15);
-  border: 3px solid rgba(124, 58, 237, 0.3);
+  box-shadow: 0 10px 30px rgba(154, 140, 185, 0.1);
+  border: 1px solid rgba(154, 140, 185, 0.3);
 }
 .vibe-glow-fantasy .vibe-ring-dot {
-  background: #7c3aed;
-  box-shadow: 0 0 15px #7c3aed;
+  background: var(--accent-purple);
+  box-shadow: 0 0 15px var(--accent-purple);
+}
+.vibe-glow-fantasy .vibe-ring-outer {
+  border-color: rgba(154, 140, 185, 0.4);
 }
 .vibe-glow-romance {
-  box-shadow: 0 0 25px rgba(219, 39, 119, 0.15);
-  border: 3px solid rgba(219, 39, 119, 0.3);
+  box-shadow: 0 10px 30px rgba(211, 139, 152, 0.1);
+  border: 1px solid rgba(211, 139, 152, 0.3);
 }
 .vibe-glow-romance .vibe-ring-dot {
-  background: #db2777;
-  box-shadow: 0 0 15px #db2777;
+  background: var(--accent-rose);
+  box-shadow: 0 0 15px var(--accent-rose);
+}
+.vibe-glow-romance .vibe-ring-outer {
+  border-color: rgba(211, 139, 152, 0.4);
 }
 .vibe-glow-scifi {
-  box-shadow: 0 0 25px rgba(8, 145, 178, 0.15);
-  border: 3px solid rgba(8, 145, 178, 0.3);
+  box-shadow: 0 10px 30px rgba(125, 163, 150, 0.1);
+  border: 1px solid rgba(125, 163, 150, 0.3);
 }
 .vibe-glow-scifi .vibe-ring-dot {
-  background: #0891b2;
-  box-shadow: 0 0 15px #0891b2;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 15px var(--accent-cyan);
+}
+.vibe-glow-scifi .vibe-ring-outer {
+  border-color: rgba(125, 163, 150, 0.4);
 }
 .vibe-glow-thriller {
-  box-shadow: 0 0 25px rgba(225, 29, 72, 0.15);
-  border: 3px solid rgba(225, 29, 72, 0.3);
+  box-shadow: 0 10px 30px rgba(224, 159, 103, 0.1);
+  border: 1px solid rgba(224, 159, 103, 0.3);
 }
 .vibe-glow-thriller .vibe-ring-dot {
-  background: #e11d48;
-  box-shadow: 0 0 15px #e11d48;
+  background: var(--accent-amber);
+  box-shadow: 0 0 15px var(--accent-amber);
+}
+.vibe-glow-thriller .vibe-ring-outer {
+  border-color: rgba(224, 159, 103, 0.4);
 }
 .vibe-glow-horror {
-  box-shadow: 0 0 25px rgba(82, 82, 91, 0.15);
-  border: 3px solid rgba(82, 82, 91, 0.3);
+  box-shadow: 0 10px 30px rgba(126, 139, 147, 0.1);
+  border: 1px solid rgba(126, 139, 147, 0.3);
 }
 .vibe-glow-horror .vibe-ring-dot {
-  background: #4b5563;
-  box-shadow: 0 0 15px #4b5563;
+  background: var(--accent-horror);
+  box-shadow: 0 0 15px var(--accent-horror);
+}
+.vibe-glow-horror .vibe-ring-outer {
+  border-color: rgba(126, 139, 147, 0.4);
 }
 
 /* Dashboard Controls Layout */
