@@ -522,22 +522,22 @@ export default function App() {
           <p className="mood-desc">Select a specific reading category or trigger Watson's recommendation list directly</p>
           
           <div className="mood-btn-container">
-            <button className={`mood-btn ${selectedMood === 'All' ? 'active' : ''}`} onClick={() => handleMoodClick('All')}>
+            <button className={`mood-btn all ${selectedMood === 'All' ? 'active' : ''}`} onClick={() => handleMoodClick('All')}>
               All Books
             </button>
-            <button className={`mood-btn ${selectedMood === 'Fantasy' ? 'active' : ''}`} onClick={() => handleMoodClick('Fantasy')}>
+            <button className={`mood-btn fantasy ${selectedMood === 'Fantasy' ? 'active' : ''}`} onClick={() => handleMoodClick('Fantasy')}>
               Fantasy & Adventure
             </button>
-            <button className={`mood-btn ${selectedMood === 'Romance' ? 'active' : ''}`} onClick={() => handleMoodClick('Romance')}>
+            <button className={`mood-btn romance ${selectedMood === 'Romance' ? 'active' : ''}`} onClick={() => handleMoodClick('Romance')}>
               Heartwarming Romance
             </button>
-            <button className={`mood-btn ${selectedMood === 'Sci-Fi' ? 'active' : ''}`} onClick={() => handleMoodClick('Sci-Fi')}>
+            <button className={`mood-btn sci-fi ${selectedMood === 'Sci-Fi' ? 'active' : ''}`} onClick={() => handleMoodClick('Sci-Fi')}>
               Science Fiction
             </button>
-            <button className={`mood-btn ${selectedMood === 'Thriller' ? 'active' : ''}`} onClick={() => handleMoodClick('Thriller')}>
+            <button className={`mood-btn thriller ${selectedMood === 'Thriller' ? 'active' : ''}`} onClick={() => handleMoodClick('Thriller')}>
               Mystery & Thriller
             </button>
-            <button className={`mood-btn ${selectedMood === 'Horror' ? 'active' : ''}`} onClick={() => handleMoodClick('Horror')}>
+            <button className={`mood-btn horror ${selectedMood === 'Horror' ? 'active' : ''}`} onClick={() => handleMoodClick('Horror')}>
               Spine-Chilling Horror
             </button>
           </div>
@@ -550,6 +550,7 @@ export default function App() {
             <div className={`vibe-dashboard-container ${currentVibe.glowClass}`}>
               <div className="vibe-ring-col">
                 <div className="vibe-ring-outer">
+                  <div className="vibe-ring-dashed-inner"></div>
                   <div className="vibe-ring-inner">
                     <div className="vibe-ring-dot"></div>
                   </div>
@@ -662,9 +663,12 @@ export default function App() {
 
                         <div className="book-meta">
                           <span className="book-rating">
-                            Rating: {book.rating || '4.5'}/5
+                            <span className="stars">
+                              {'★'.repeat(Math.round(parseFloat(book.rating) || 4.5)) + '☆'.repeat(5 - Math.round(parseFloat(book.rating) || 4.5))}
+                            </span>
+                            <span className="rating-num">({book.rating || '4.5'})</span>
                           </span>
-                          <button className="book-btn" onClick={() => addToShelf(book)}>
+                          <button className={`book-btn ${isSaved ? 'saved' : ''}`} onClick={() => addToShelf(book)}>
                             {isSaved ? 'In Bookshelf' : 'Add to Shelf'}
                           </button>
                         </div>
