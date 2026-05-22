@@ -146,7 +146,7 @@ app.get('/api/books', (req, res) => {
 
 const coverCache = {};
 
-// API: Proxy book cover fetching from Open Library
+// API: Proxy book cover fetching from iTunes Search API
 app.get('/api/cover', async (req, res) => {
   const { title, author } = req.query;
   if (!title || !author) {
@@ -160,50 +160,63 @@ app.get('/api/cover', async (req, res) => {
   }
 
   const headers = {
-    'User-Agent': 'ReadoraBookChatbot/2.0 (readora.project@gmail.com)'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
   };
 
   try {
-    const query = `title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`;
-    const url = `https://openlibrary.org/search.json?${query}&limit=5`;
+    const term = `${title} ${author}`;
+    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=ebook&limit=1`;
     
-    console.log(`[Cover Proxy] Querying title & author: "${title}" by ${author}`);
+    console.log(`[Cover Proxy] Querying iTunes for "${title}" by ${author}`);
     const apiRes = await fetch(url, { headers });
     
     if (apiRes.ok) {
       const data = await apiRes.json();
-      if (data.docs && data.docs.length > 0) {
-        const docWithCover = data.docs.find(d => d.cover_i);
-        if (docWithCover) {
-          const coverUrl = `https://covers.openlibrary.org/b/id/${docWithCover.cover_i}-M.jpg`;
-          console.log(`[Cover Proxy] Found cover ID ${docWithCover.cover_i} for "${title}" via title & author query`);
+      if (data.results && data.results.length > 0) {
+        const artworkUrl = data.results[0].artworkUrl100;
+        if (artworkUrl) {
+          // Upgrade size suffix from 100x100 to 400x600
+          let coverUrl = artworkUrl;
+          const parts = artworkUrl.split('/');
+          const lastSegment = parts[parts.length - 1];
+          if (/\d+x\d+/.test(lastSegment)) {
+            parts[parts.length - 1] = '400x600bb.jpg';
+            coverUrl = parts.join('/');
+          }
+          coverUrl = coverUrl.replace(/^http:/, 'https:');
+          console.log(`[Cover Proxy] Found cover from iTunes: ${coverUrl}`);
           coverCache[cacheKey] = coverUrl;
           return res.json({ coverUrl });
         }
       }
     } else {
-      console.warn(`[Cover Proxy] Primary request failed with status: ${apiRes.status}`);
+      console.warn(`[Cover Proxy] iTunes primary request failed with status: ${apiRes.status}`);
     }
 
-    // Fallback: Broad q search query
-    console.log(`[Cover Proxy] Falling back to broad q query for: "${title} ${author}"`);
-    const fallbackQuery = `q=${encodeURIComponent(title + ' ' + author)}`;
-    const fallbackUrl = `https://openlibrary.org/search.json?${fallbackQuery}&limit=5`;
-    
+    // Fallback: search without book author (only title)
+    console.log(`[Cover Proxy] Falling back to title-only iTunes search for "${title}"`);
+    const fallbackUrl = `https://itunes.apple.com/search?term=${encodeURIComponent(title)}&entity=ebook&limit=1`;
     const fallbackRes = await fetch(fallbackUrl, { headers });
     if (fallbackRes.ok) {
       const data = await fallbackRes.json();
-      if (data.docs && data.docs.length > 0) {
-        const docWithCover = data.docs.find(d => d.cover_i);
-        if (docWithCover) {
-          const coverUrl = `https://covers.openlibrary.org/b/id/${docWithCover.cover_i}-M.jpg`;
-          console.log(`[Cover Proxy] Found cover ID ${docWithCover.cover_i} for "${title}" via fallback q query`);
+      if (data.results && data.results.length > 0) {
+        const artworkUrl = data.results[0].artworkUrl100;
+        if (artworkUrl) {
+          let coverUrl = artworkUrl;
+          const parts = artworkUrl.split('/');
+          const lastSegment = parts[parts.length - 1];
+          if (/\d+x\d+/.test(lastSegment)) {
+            parts[parts.length - 1] = '400x600bb.jpg';
+            coverUrl = parts.join('/');
+          }
+          coverUrl = coverUrl.replace(/^http:/, 'https:');
+          console.log(`[Cover Proxy] Found cover from iTunes (fallback): ${coverUrl}`);
           coverCache[cacheKey] = coverUrl;
           return res.json({ coverUrl });
         }
       }
     } else {
-      console.warn(`[Cover Proxy] Fallback request failed with status: ${fallbackRes.status}`);
+      console.warn(`[Cover Proxy] iTunes fallback request failed with status: ${fallbackRes.status}`);
     }
 
     console.log(`[Cover Proxy] No cover found for "${title}"`);

@@ -203,14 +203,20 @@ export default function App() {
   // Initial load
   useEffect(() => {
     fetchBooks();
-    // Clean up old 'placeholder' or invalid cache values so they can be re-fetched via the backend proxy
+    // Clean up old 'placeholder', invalid, or openlibrary.org cache values so they can be re-fetched via the iTunes backend proxy
     try {
       const cached = localStorage.getItem('readora_covers_cache');
       if (cached) {
         const parsed = JSON.parse(cached);
         let changed = false;
         Object.keys(parsed).forEach(key => {
-          if (parsed[key] === 'placeholder' || parsed[key] === null || parsed[key] === 'none') {
+          const val = parsed[key];
+          if (
+            val === 'placeholder' || 
+            val === null || 
+            val === 'none' || 
+            (typeof val === 'string' && val.includes('openlibrary.org'))
+          ) {
             delete parsed[key];
             changed = true;
           }
