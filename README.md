@@ -1,5 +1,7 @@
 # Readora — AI-Powered Book Recommendation Chatbot (React + Node Full Stack)
 
+**Live Demo:** [readora-chatbot.onrender.com](https://readora-chatbot.onrender.com)
+
 Readora is a premium, full-stack book recommendation chatbot designed to help readers discover books they will love through natural conversations. Powered by IBM Watson Assistant and a local database, Readora analyzes how a user is feeling or what genre they are interested in and displays recommendations in an interactive dashboard featuring animated 3D physical book cards.
 
 The project is structured as a professional, production-grade full-stack application (similar to a standard enterprise React + Express setup).
